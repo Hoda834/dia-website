@@ -86,7 +86,7 @@ function HomePage({ onNav, onSection, sectionRefs }) {
                   </div>
                   <div className="featured-body" onClick={() => onNav("project", p.id)}>
                     <h4>{p.name}</h4>
-                    <div className="featured-loc">{p.location} · {p.area}</div>
+                    <div className="featured-loc">{[p.location, p.area, p.year].filter((x) => x && x !== "—").join(" · ")}</div>
                   </div>
                 </FadeUp>
               ))}
@@ -138,21 +138,39 @@ function HomePage({ onNav, onSection, sectionRefs }) {
 // ============== HERO CAROUSEL ==============
 function HeroCarousel({ slides, tagline, eyebrow, onNav, onSection }) {
   const [idx, setIdx] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
   const len = slides.length;
+  const touchStart = React.useRef(null);
 
   React.useEffect(() => {
+    if (paused) return;
     const id = setInterval(() => setIdx((i) => (i + 1) % len), 6000);
     return () => clearInterval(id);
-  }, [len]);
+  }, [len, paused]);
 
   const go = (delta) => setIdx((i) => (i + delta + len) % len);
 
+  const onTouchStart = (e) => { touchStart.current = e.touches[0].clientX; setPaused(true); };
+  const onTouchEnd = (e) => {
+    if (touchStart.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStart.current;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    touchStart.current = null;
+    setTimeout(() => setPaused(false), 4000);
+  };
+
   return (
-    <div className="hero hero-carousel">
+    <div className="hero hero-carousel"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}>
       <div className="hero-bg">
         {slides.map((s, i) => (
           <div key={i} className={cx("hero-slide", i === idx && "on")}>
-            <Img src={s.src} label={s.label} />
+            <Img src={s.src} label={s.label} eager={i === 0} />
           </div>
         ))}
       </div>
@@ -194,14 +212,18 @@ function Stat({ value, label, sub, delay = 0 }) {
 
   React.useEffect(() => {
     if (!ref.current) return;
+    // If already in view at mount, start immediately
+    const rect = ref.current.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (inView) { setSeen(true); return; }
     const io = new IntersectionObserver((es) => {
       es.forEach((e) => {
         if (e.isIntersecting && !seen) { setSeen(true); io.disconnect(); }
       });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
     io.observe(ref.current);
     return () => io.disconnect();
-  }, [seen]);
+  }, []);
 
   React.useEffect(() => {
     if (!seen) return;
@@ -210,7 +232,6 @@ function Stat({ value, label, sub, delay = 0 }) {
     let raf;
     const tick = (t) => {
       const p = Math.max(0, Math.min(1, (t - start) / dur));
-      // ease-out cubic
       const eased = 1 - Math.pow(1 - p, 3);
       setN(Math.round(target * eased));
       if (p < 1) raf = requestAnimationFrame(tick);
@@ -221,7 +242,7 @@ function Stat({ value, label, sub, delay = 0 }) {
 
   return (
     <div className="stat" ref={ref}>
-      <div className="stat-num">{n}{hasPlus && <span className="plus">+</span>}</div>
+      <div className="stat-num">{seen ? n : 0}{hasPlus && seen && n > 0 && <span className="plus">+</span>}</div>
       <div className="stat-label">{label}</div>
       <div className="stat-sub">{sub}</div>
     </div>
@@ -422,7 +443,8 @@ function OurServicesCarousel({ items, onMore, onCardClick }) {
         {Icon.chevron}
       </button>
       <div className="os-more">
-        <button className="why-more" onClick={onMore}>MORE</button>
+        <span className="os-swipe-hint" aria-hidden="true">SWIPE</span>
+        <button className="btn-pill" onClick={onMore}>VIEW ALL</button>
       </div>
     </div>);
 
@@ -600,22 +622,12 @@ function StudioPage({ onNav, onSection }) {
         </div>
       </section>
 
-      {/* TEAM PHOTOS */}
+      {/* TEAM intro — full grid hidden until real photos provided */}
       <section className="section" style={{ paddingTop: 0 }}>
         <div className="container" style={{ maxWidth: 1620 }}>
           <FadeUp>
             <h3 className="display" style={{ fontSize: 22, letterSpacing: "0.06em", color: "#fff", marginBottom: 18, fontFamily: "var(--f-body)", fontWeight: 600 }}>A BLEND OF TALENT AND CREATIVITY</h3>
-            <p className="about-p" style={{ marginBottom: 40, color: "#fff", maxWidth: 1280, marginLeft: 0, textAlign: "left", fontSize: 16, lineHeight: "26px" }}>{s.teamIntro}</p>
-            <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap" }}>
-              {[1, 2, 3, 4, 5].map((i) =>
-              <div key={i} style={{ width: 130, height: 160, borderRadius: 18, background: "#171615", border: "1px solid rgba(208,179,137,0.18)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(208,179,137,0.45)", fontFamily: "ui-monospace, monospace", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-                  Team {String(i).padStart(2, "0")}
-                </div>
-              )}
-            </div>
-            <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 28 }}>
-              <button className="why-more">MEET THE FULL TEAM</button>
-            </div>
+            <p className="about-p" style={{ marginBottom: 0, color: "#fff", maxWidth: 1280, marginLeft: 0, textAlign: "left", fontSize: 16, lineHeight: "26px" }}>{s.teamIntro}</p>
           </FadeUp>
         </div>
       </section>
@@ -626,14 +638,18 @@ function StudioPage({ onNav, onSection }) {
           <FadeUp>
             <h3 className="display" style={{ fontSize: 22, letterSpacing: "0.06em", color: "#fff", marginBottom: 32, fontFamily: "var(--f-body)", fontWeight: 600, textTransform: "uppercase" }}>WHAT MAKES US DIFFERENT</h3>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }} className="diff-grid">
-              {s.differentiators.map((d, i) =>
-              <FadeUp key={i} delay={i % 2 * 60} style={{ background: "rgba(94,80,71,0.22)", borderRadius: 30, padding: "22px 28px", display: "flex", alignItems: "center", gap: 22 }}>
-                  <span style={{ width: 56, height: 56, borderRadius: 16, background: "rgba(208,179,137,0.18)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "var(--c-tan)", flexShrink: 0 }}>
-                    {Icon.svc && Icon.svc.newBuild}
-                  </span>
+              {s.differentiators.map((d, i) => {
+                const diffIcons = ["newBuild", "plan", "interior", "landscape"];
+                const ic = (Icon.svc && Icon.svc[diffIcons[i % diffIcons.length]]) || Icon.svc.newBuild;
+                return (
+                  <FadeUp key={i} delay={i % 2 * 60} style={{ background: "rgba(94,80,71,0.22)", borderRadius: 30, padding: "22px 28px", display: "flex", alignItems: "center", gap: 22 }}>
+                    <span style={{ width: 56, height: 56, borderRadius: 16, background: "rgba(208,179,137,0.18)", display: "inline-flex", alignItems: "center", justifyContent: "center", color: "var(--c-tan)", flexShrink: 0 }}>
+                      {ic}
+                    </span>
                   <span style={{ fontFamily: "var(--f-body)", fontWeight: 600, fontSize: 16, color: "#fff", letterSpacing: "0.04em", textTransform: "uppercase" }}>{d.t}</span>
                 </FadeUp>
-              )}
+                );
+              })}
             </div>
           </FadeUp>
         </div>
@@ -659,11 +675,17 @@ function StudioPage({ onNav, onSection }) {
           <FadeUp>
             <h3 className="display" style={{ fontSize: 22, letterSpacing: "0.06em", color: "#fff", marginBottom: 32, fontFamily: "var(--f-body)", fontWeight: 600, textTransform: "uppercase" }}>GUIDED BY CORE VALUES</h3>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 16 }} className="values-grid">
-              {s.coreValues.map((v, i) =>
-              <FadeUp key={v} delay={i * 50} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(208,179,137,0.18)", borderRadius: 24, padding: "180px 18px 22px", textAlign: "center" }}>
-                  <div style={{ fontFamily: "var(--f-body)", fontWeight: 600, fontSize: 14, color: "#fff", letterSpacing: "0.08em", textTransform: "uppercase" }}>{v}</div>
-                </FadeUp>
-              )}
+              {s.coreValues.map((v, i) => {
+                const valIcons = [Icon.svc.commercial, Icon.svc.newBuild, Icon.svc.plan, Icon.svc.landscape, Icon.svc.interior];
+                return (
+                  <FadeUp key={v} delay={i * 50} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(208,179,137,0.18)", borderRadius: 24, padding: "44px 18px 26px", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 22 }}>
+                    <span style={{ width: 64, height: 64, display: "inline-flex", alignItems: "center", justifyContent: "center", color: "var(--c-tan)" }}>
+                      {valIcons[i % valIcons.length]}
+                    </span>
+                    <div style={{ fontFamily: "var(--f-body)", fontWeight: 600, fontSize: 14, color: "#fff", letterSpacing: "0.08em", textTransform: "uppercase" }}>{v}</div>
+                  </FadeUp>
+                );
+              })}
             </div>
           </FadeUp>
         </div>
@@ -696,7 +718,7 @@ function StudioPage({ onNav, onSection }) {
 
 function ProjectsPage({ onNav }) {
   const D = window.DIA;
-  const types = ["All", "New Build", "Renovation", "Conversion", "Interior"];
+  const types = ["All", ...Array.from(new Set(D.work.map((p) => p.typology))).filter(Boolean)];
   const [filter, setFilter] = React.useState("All");
   const items = filter === "All" ? D.work : D.work.filter((p) => p.typology === filter);
   return (
@@ -707,20 +729,22 @@ function ProjectsPage({ onNav }) {
           <p style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 40px", fontSize: 14, color: "var(--c-text-dim)", lineHeight: 1.7 }}>
             A selection of recent residential commissions across the UK and Egypt.
           </p>
-          <div className="chips">
-            {types.map((t) =>
-            <button key={t} className={cx("chip", filter === t && "on")} onClick={() => setFilter(t)}>{t}</button>
-            )}
-          </div>
+          {types.length > 2 &&
+            <div className="chips">
+              {types.map((t) =>
+                <button key={t} className={cx("chip", filter === t && "on")} onClick={() => setFilter(t)}>{t}</button>
+              )}
+            </div>
+          }
           <div className="work-grid">
             {items.map((p, i) =>
             <FadeUp key={p.id} delay={i % 3 * 80}>
                 <div className="work" onClick={() => onNav("project", p.id)}>
                   <div className="work-img"><Img src={p.cover} label={p.coverLabel} /></div>
                   <div className="work-body">
-                    <div className="work-tag">{p.typology} · {p.year}</div>
+                    <div className="work-tag">{[p.typology, p.year].filter((x) => x && x !== "—").join(" · ")}</div>
                     <h4>{p.name}</h4>
-                    <div className="meta">{p.location} · {p.area}</div>
+                    <div className="meta">{[p.location, p.area].filter((x) => x && x !== "—").join(" · ")}</div>
                   </div>
                 </div>
               </FadeUp>

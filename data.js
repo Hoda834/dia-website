@@ -15,11 +15,11 @@ window.DIA = {
     eyebrow: "Design-Itude Associates · Residential",
     title: "We Turn Your Dreams Into Reality",
     tagline: "WE TURN YOUR DREAMS\nINTO REALITY",
-    image: "assets/hero-1.png",
+    image: "assets/hero-1.jpg",
     imageLabel: "HERO · 1920×1080",
     slides: [
-      { src: "assets/hero-1.png",        label: "Hero · interior" },
-      { src: "assets/about-banner.png",  label: "Hero · living" },
+      { src: "assets/hero-1.jpg",        label: "Hero · interior" },
+      { src: "assets/about-banner.jpg",  label: "Hero · living" },
       { src: "assets/svc-project.jpg",   label: "Hero · architecture" },
       { src: "assets/about-band.jpg",    label: "Hero · kitchen" },
       { src: "assets/svc-interior.jpg",  label: "Hero · interior 2" }
@@ -27,10 +27,10 @@ window.DIA = {
   },
 
   about: {
-    intro: "WELCOME TO DIA | DESIGN-ITUDE ASSOCIATES, WHERE CREATIVITY MEETS FUNCTIONALITY AND BOLD VISIONS COME TO LIFE.",
+    intro: "Welcome to DiA | Design-Itude Associates — where creativity meets functionality, and bold visions come to life.",
     body: [
-      "In the dynamic world, where every space tells a story and every design choice evokes an emotion, DiA shines as a beacon of innovation and excellence. We are proud of our passion for crafting immersive experiences. Not only that but our commitment to exceeding guest expectations and our studio is dedicated to redefining the landscape, one project at a time.",
-      "We are an international Architecture and Interior Design Studio renowned for its inclusive and innovative approach to creating socially responsible, engaging, and visually captivating spaces. Founded in 2007, in London, which started with a focus on residential, we have been dedicated to bringing transformative designs to life."
+      "In a dynamic world where every space tells a story and every design choice evokes an emotion, DiA stands as a beacon of innovation and excellence. We are proud of our passion for crafting immersive experiences, our commitment to exceeding expectations, and our studio's dedication to redefining the landscape — one project at a time.",
+      "We are an international architecture and interior design studio renowned for an inclusive, innovative approach to creating socially responsible, engaging, and visually captivating spaces. Founded in London in 2007 with a focus on residential, we've been dedicated to bringing transformative designs to life ever since."
     ],
     portrait: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80",
     portraitLabel: "ABOUT · residence interior"
@@ -94,7 +94,7 @@ window.DIA = {
     { n: "02", t: "Extensions",        icon: "extension", b: "We design tailored extensions that blend seamlessly with your home's existing structure, creating functional and stylish living spaces that align with your lifestyle and needs.",
       long: "Ground-floor, side, rear and wrap-around extensions, designed to look as if they were always there. We work with the existing line of the building — the brick course, the eaves, the ceiling height — so the new room feels structural rather than bolted on.",
       includes: ["Survey & feasibility", "Planning & permitted-development advice", "Party-wall coordination", "Construction drawings", "Interior continuity with the existing house"],
-      hero: "assets/hero-1.png" },
+      hero: "assets/hero-1.jpg" },
     { n: "03", t: "Loft Conversion",   icon: "loft",      b: "A loft conversion is an excellent way to utilise unused space and add a new dimension to your home.",
       long: "Dormer, hip-to-gable, mansard and L-shaped loft conversions — chosen for what the roof can give you, not what's easiest to build. We recover the floor without losing the line of the building.",
       includes: ["Structural survey", "Dormer or hip-to-gable design", "Staircase reorganisation", "Bedroom + en-suite planning", "Building regs sign-off"],
@@ -154,58 +154,58 @@ window.DIA = {
 
   work: [
     { id: "project-01", name: "Project Name", typology: "Residential", location: "Location · UK", year: "—", area: "—",
-      cover: "assets/about-banner.png", coverLabel: "PROJECT",
+      cover: "assets/about-banner.jpg", coverLabel: "PROJECT",
       brief: "Project brief — placeholder.",
       gallery: [
-        { src: "assets/about-banner.png", l: "01" },
-        { src: "assets/about-banner.png", l: "02" },
-        { src: "assets/about-banner.png", l: "03" },
-        { src: "assets/about-banner.png", l: "04" }
+        { src: "assets/about-banner.jpg", l: "01" },
+        { src: "assets/about-banner.jpg", l: "02" },
+        { src: "assets/about-banner.jpg", l: "03" },
+        { src: "assets/about-banner.jpg", l: "04" }
       ]},
     { id: "project-02", name: "Project Name", typology: "Residential", location: "Location · UK", year: "—", area: "—",
-      cover: "assets/about-banner.png", coverLabel: "PROJECT",
+      cover: "assets/about-banner.jpg", coverLabel: "PROJECT",
       brief: "Project brief — placeholder.",
       gallery: [
-        { src: "assets/about-banner.png", l: "01" },
-        { src: "assets/about-banner.png", l: "02" },
-        { src: "assets/about-banner.png", l: "03" },
-        { src: "assets/about-banner.png", l: "04" }
+        { src: "assets/about-banner.jpg", l: "01" },
+        { src: "assets/about-banner.jpg", l: "02" },
+        { src: "assets/about-banner.jpg", l: "03" },
+        { src: "assets/about-banner.jpg", l: "04" }
       ]},
     { id: "project-03", name: "Project Name", typology: "Residential", location: "Location · UK", year: "—", area: "—",
-      cover: "assets/about-banner.png", coverLabel: "PROJECT",
+      cover: "assets/about-banner.jpg", coverLabel: "PROJECT",
       brief: "Project brief — placeholder.",
       gallery: [
-        { src: "assets/about-banner.png", l: "01" },
-        { src: "assets/about-banner.png", l: "02" },
-        { src: "assets/about-banner.png", l: "03" },
-        { src: "assets/about-banner.png", l: "04" }
+        { src: "assets/about-banner.jpg", l: "01" },
+        { src: "assets/about-banner.jpg", l: "02" },
+        { src: "assets/about-banner.jpg", l: "03" },
+        { src: "assets/about-banner.jpg", l: "04" }
       ]},
     { id: "project-04", name: "Project Name", typology: "Residential", location: "Location · UK", year: "—", area: "—",
-      cover: "assets/about-banner.png", coverLabel: "PROJECT",
+      cover: "assets/about-banner.jpg", coverLabel: "PROJECT",
       brief: "Project brief — placeholder.",
       gallery: [
-        { src: "assets/about-banner.png", l: "01" },
-        { src: "assets/about-banner.png", l: "02" },
-        { src: "assets/about-banner.png", l: "03" },
-        { src: "assets/about-banner.png", l: "04" }
+        { src: "assets/about-banner.jpg", l: "01" },
+        { src: "assets/about-banner.jpg", l: "02" },
+        { src: "assets/about-banner.jpg", l: "03" },
+        { src: "assets/about-banner.jpg", l: "04" }
       ]},
     { id: "project-05", name: "Project Name", typology: "Residential", location: "Location · UK", year: "—", area: "—",
-      cover: "assets/about-banner.png", coverLabel: "PROJECT",
+      cover: "assets/about-banner.jpg", coverLabel: "PROJECT",
       brief: "Project brief — placeholder.",
       gallery: [
-        { src: "assets/about-banner.png", l: "01" },
-        { src: "assets/about-banner.png", l: "02" },
-        { src: "assets/about-banner.png", l: "03" },
-        { src: "assets/about-banner.png", l: "04" }
+        { src: "assets/about-banner.jpg", l: "01" },
+        { src: "assets/about-banner.jpg", l: "02" },
+        { src: "assets/about-banner.jpg", l: "03" },
+        { src: "assets/about-banner.jpg", l: "04" }
       ]},
     { id: "project-06", name: "Project Name", typology: "Residential", location: "Location · UK", year: "—", area: "—",
-      cover: "assets/about-banner.png", coverLabel: "PROJECT",
+      cover: "assets/about-banner.jpg", coverLabel: "PROJECT",
       brief: "Project brief — placeholder.",
       gallery: [
-        { src: "assets/about-banner.png", l: "01" },
-        { src: "assets/about-banner.png", l: "02" },
-        { src: "assets/about-banner.png", l: "03" },
-        { src: "assets/about-banner.png", l: "04" }
+        { src: "assets/about-banner.jpg", l: "01" },
+        { src: "assets/about-banner.jpg", l: "02" },
+        { src: "assets/about-banner.jpg", l: "03" },
+        { src: "assets/about-banner.jpg", l: "04" }
       ]}
   ],
 
@@ -223,7 +223,7 @@ window.DIA = {
 
   studio: {
     tagline: "Award winning, architectural and interior design studio",
-    whoBg: "assets/about-banner.png",
+    whoBg: "assets/about-banner.jpg",
     whoText: "Design-Itude Associates is an award-winning architectural and interior design studio founded by Ahmed Youssef, an architect with two decades of experience. Our mission is to create bespoke, high-quality spaces that inspire and reflect the unique lifestyles of each client. Recognising a gap in the industry for personalised, high-end design, Design-Itude was founded to provide modern architectural solutions blending elegance, functionality, and safety into every project.\n\nWith studios in London, Kent, Surrey, and Egypt, our team has the expertise to bring transformative designs to life. Whether reshaping a single room or crafting tailored interiors, we deliver a personalised touch to every project.",
     principal: {
       name: "AHMED YOUSSEF",
@@ -247,13 +247,13 @@ window.DIA = {
     ],
     yourVision: "Discover how our team's passion and expertise can bring your vision to life. Explore our portfolio to see the results of our work, and contact us today to schedule a consultation with one of our expert architects.",
     coreValues: ["PROFESSIONALISM", "PIONEERING", "RELIABILITY", "CONSCIOUSNESS", "CREATIVITY"],
-    ctaBg: "assets/cta-band.png"
+    ctaBg: "assets/cta-band.jpg"
   },
 
   offices: [
-    { city: "LONDON, UK", addr: "124 CITY ROAD, EC1V 2NX", tel: "+44 (0) 207 459 4964", mail: "hello.uk@dia-uk.com" },
-    { city: "KENT, UK",   addr: "Turkey Mill, 1 James Whatman, ME14 5PP", tel: "+44 (0) 207 459 4964", mail: "hello.uk@dia-uk.com" },
-    { city: "CAIRO, EG",  addr: "311 HYDE PARK BUSINESS PLAZA, NEW CAIRO", tel: "(+20) 222 222 753", mail: "hello.eg@dia-eg.com" }
+    { city: "LONDON, UK", addr: "124 City Road, EC1V 2NX", tel: "+44 (0) 207 459 4964", mail: "hello.uk@dia-uk.com" },
+    { city: "KENT, UK",   addr: "Turkey Mill, 1 James Whatman, Maidstone ME14 5PP", tel: "+44 (0) 207 459 4964", mail: "hello.uk@dia-uk.com" },
+    { city: "CAIRO, EG",  addr: "311 Hyde Park Business Plaza, New Cairo", tel: "(+20) 222 222 753", mail: "hello.eg@dia-eg.com" }
   ],
 
   sitemap: ["HOME", "ABOUT US", "HOW DO WE DO?", "OUR WORK", "OUR SERVICES", "CONTACT US"],
