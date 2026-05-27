@@ -53,10 +53,10 @@ function Logo({ onClick, big }) {
 
 }
 
-function Img({ src, label, className, style }) {
+function Img({ src, label, className, style, eager }) {
   return (
     <div className={cx("img-placeholder", className)} data-label={label} style={style}>
-      <img src={src} alt={label || ""} loading="lazy" onError={(e) => {e.target.style.opacity = 0;}} />
+      <img src={src} alt={label || ""} loading={eager ? "eager" : "lazy"} fetchpriority={eager ? "high" : "auto"} onError={(e) => {e.target.style.opacity = 0;}} />
     </div>);
 
 }
@@ -246,7 +246,7 @@ function Footer({ onNav, onSection }) {
           <span>PRIVACY STATEMENT</span><span className="sep">|</span>
           <span>LEGAL</span>
         </span>
-        <span className="copy">2025 | Design-itude Associates LTD</span>
+        <span className="copy">2026 | Design-itude Associates LTD</span>
       </div>
     </footer>);
 
