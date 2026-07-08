@@ -20,9 +20,7 @@ assets/
 
 ### GitHub Pages
 
-1. Push these files to the root of a repository.
-2. Settings → Pages → Source: `main` branch / `/ (root)`.
-3. Your site will be live at `https://<your-username>.github.io/<your-repo>/`.
+Website is live at ` https://hoda834.github.io/dia-website/`.
 
 ## Local Preview
 
